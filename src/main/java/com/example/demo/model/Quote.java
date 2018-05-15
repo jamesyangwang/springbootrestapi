@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Quote {
-    private String type;
+    private String status;
     private Value value;
  }
