@@ -4,10 +4,9 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
-import javax.validation.Validation;
 import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,23 +38,23 @@ public class GreetingController {
 	
 	@Autowired
 	QuoteClient qc;
+	
+	@Autowired
+	Validator validator;
 
     //http://localhost:8080/greeting?name=James
 	//https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html
     @RequestMapping(method=RequestMethod.GET, path="/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) throws Exception {
     	Greeting greeting = null;
     	try {
         	MDC.put("uuid", "counter_" + counter);
         	Quote quote = qc.getQuote();
         	greeting = new Greeting(counter.incrementAndGet(), String.format(template, name), quote);
 
-        	//http://www.baeldung.com/javax-validation
-        	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        	Validator validator = factory.getValidator();
         	Set<ConstraintViolation<Greeting>> violations = validator.validate(greeting);
-        	for (ConstraintViolation<Greeting> violation : violations) {
-        		logger.error(violation.getMessage());
+        	if (!violations.isEmpty()) {
+           		throw new ConstraintViolationException(violations);
         	}
         	
         	logger.info(greeting.toString());
@@ -66,11 +65,11 @@ public class GreetingController {
     	return greeting;
     }
     
-    //https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
-    @GetMapping("/cors")
-    public ResponseEntity<Greeting> cors(@RequestParam String name) {
+    //https://www.youtube.com/watch?v=wTuUMlKcno0
+    @PostMapping("/person")
+    public ResponseEntity<Greeting> person(@Valid @RequestBody Person person) {
     	Quote quote = qc.getQuote();
-    	@Valid Greeting greeting = new Greeting(counter.incrementAndGet(), name, quote);
+    	Greeting greeting = new Greeting(counter.incrementAndGet(), person.getName(), quote);
     	logger.info(greeting.toString());
     	
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -78,11 +77,11 @@ public class GreetingController {
         return new ResponseEntity<Greeting>(greeting, responseHeaders, HttpStatus.OK);
     }
     
-    //https://www.youtube.com/watch?v=wTuUMlKcno0
-    @PostMapping("/person")
-    public ResponseEntity<Greeting> person(@Valid @RequestBody Person person) {
+    //https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
+    @GetMapping("/cors")
+    public ResponseEntity<Greeting> cors(@RequestParam String name) {
     	Quote quote = qc.getQuote();
-    	Greeting greeting = new Greeting(counter.incrementAndGet(), person.getName(), quote);
+    	@Valid Greeting greeting = new Greeting(counter.incrementAndGet(), name, quote);
     	logger.info(greeting.toString());
     	
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -98,6 +97,30 @@ public class GreetingController {
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Validation:
 //http://www.baeldung.com/spring-data-rest-validators

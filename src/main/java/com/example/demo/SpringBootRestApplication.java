@@ -1,5 +1,9 @@
 package com.example.demo;
 
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -36,4 +40,12 @@ public class SpringBootRestApplication {
 			log.info(quote.toString());
 		};
 	}
+
+	@Bean
+	public Validator validator() {
+		//http://www.baeldung.com/javax-validation
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		return factory.getValidator();
+	}
+
 }

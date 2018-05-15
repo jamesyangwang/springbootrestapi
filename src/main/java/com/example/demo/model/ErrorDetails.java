@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -18,5 +18,6 @@ import lombok.NoArgsConstructor;
 public class ErrorDetails {
 	  private Date timestamp;
 	  private String message;
+	  private List<String> messages;
 	  private String details;
 }
