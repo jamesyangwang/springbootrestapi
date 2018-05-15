@@ -14,13 +14,16 @@ import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.client.QuoteClient;
@@ -77,6 +80,17 @@ public class GreetingController {
         return new ResponseEntity<Greeting>(greeting, responseHeaders, HttpStatus.OK);
     }
     
+    //@PostMapping(value = "/person2", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/person2", produces = MediaType.TEXT_PLAIN_VALUE)
+    @ResponseBody
+	public ResponseEntity<String> person2(@Valid @RequestBody Person person, BindingResult bindingResult) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin", "*");
+		return bindingResult.hasErrors() ?
+				new ResponseEntity<String>(bindingResult.getFieldError().getDefaultMessage(), responseHeaders, HttpStatus.BAD_REQUEST) :
+					new ResponseEntity<String>(person.toString(), responseHeaders, HttpStatus.OK);
+	}
+    
     //https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
     @GetMapping("/cors")
     public ResponseEntity<Greeting> cors(@RequestParam String name) {
@@ -123,6 +137,11 @@ public class GreetingController {
 
 
 //Validation:
+//http://hibernate.org/validator/
+//http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-constraints
+//http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#validator-customconstraints-simple
+//http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-configuring-validator-factory
+//https://my.oschina.net/chen1988/blog/1511992
 //http://www.baeldung.com/spring-data-rest-validators
 //https://howtodoinjava.com/spring/spring-boot2/spring-rest-request-validation/
 //https://blog.codecentric.de/en/2017/11/dynamic-validation-spring-boot-validation/
