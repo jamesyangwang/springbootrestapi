@@ -1,12 +1,16 @@
 package com.example.demo.controller;
 
 
+import java.net.URI;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,4 +45,18 @@ public class GreetingController {
     	}
     	return greeting;
     }
+    
+    //https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/http/ResponseEntity.html
+    @RequestMapping("/cors")
+    public ResponseEntity<Greeting> cors() {
+    	Quote quote = qc.getQuote();
+    	Greeting greeting = new Greeting(counter.incrementAndGet(), "CORS", quote);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin", "*");
+        return new ResponseEntity<Greeting>(greeting, responseHeaders, HttpStatus.OK);
+    }
 }
+
+//https://api.swaggerhub.com/apis/jamesyangwang
+//http://petstore.swagger.io/?url=https://api.swaggerhub.com/apis/jamesyangwang/CORS/0.1
+//http://petstore.swagger.io/?url=https://api.swaggerhub.com/apis/jamesyangwang/Greeting/0.1

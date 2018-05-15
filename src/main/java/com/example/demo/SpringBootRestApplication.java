@@ -11,8 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.model.Quote;
 
-//https://swagger.io/
-
 //https://spring.io/guides/gs/rest-service/
 //https://spring.io/guides/gs/consuming-rest/
 
