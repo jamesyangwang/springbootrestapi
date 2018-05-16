@@ -26,6 +26,9 @@ import com.example.demo.model.ErrorDetails;
 public class ValidationHandler extends ResponseEntityExceptionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(ValidationHandler.class);
+
+	//=========================================================================
+	// handle Exception
 	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public final ResponseEntity<ErrorDetails> handleAllExceptions(ConstraintViolationException ex, WebRequest request) {
@@ -35,8 +38,9 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ErrorDetails>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
-	//https://blog.jayway.com/2013/02/03/improve-your-spring-rest-api-part-iii/
-	//@Valid @RequestBody
+	//=========================================================================
+	// triggered by @Valid @RequestBody
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
@@ -59,3 +63,36 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//ResponseEntityExceptionHandler:
+//https://blog.jayway.com/2013/02/03/improve-your-spring-rest-api-part-iii/
+
+
