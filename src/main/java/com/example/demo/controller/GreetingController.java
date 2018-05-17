@@ -44,6 +44,24 @@ public class GreetingController {
 	
 	@Autowired
 	Validator validator;
+    
+	//=========================================================================
+    // validate with @Valid
+    // errors will be handled by handleMethodArgumentNotValid() in ResponseEntityExceptionHandler
+    // http://localhost:8080/person
+    // Content-Type: application/json
+    // {"name": "James", "licensePlate": "test"}
+
+    @PostMapping("/person")
+    public ResponseEntity<Greeting> person(@Valid @RequestBody Person person) {
+    	Quote quote = qc.getQuote();
+    	Greeting greeting = new Greeting(counter.incrementAndGet(), person.getName(), quote);
+    	logger.info(greeting.toString());
+    	
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Access-Control-Allow-Origin", "*");
+        return new ResponseEntity<Greeting>(greeting, responseHeaders, HttpStatus.OK);
+    }
 
 	//=========================================================================
 	// validate with validator
@@ -69,24 +87,6 @@ public class GreetingController {
         	MDC.remove("uuid");
     	}
     	return greeting;
-    }
-    
-	//=========================================================================
-    // validate with @Valid
-    // errors will be handled by handleMethodArgumentNotValid() in ResponseEntityExceptionHandler
-    // http://localhost:8080/person
-    // Content-Type: application/json
-    // {"name": "James", "licensePlate": "test"}
-
-    @PostMapping("/person")
-    public ResponseEntity<Greeting> person(@Valid @RequestBody Person person) {
-    	Quote quote = qc.getQuote();
-    	Greeting greeting = new Greeting(counter.incrementAndGet(), person.getName(), quote);
-    	logger.info(greeting.toString());
-    	
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Access-Control-Allow-Origin", "*");
-        return new ResponseEntity<Greeting>(greeting, responseHeaders, HttpStatus.OK);
     }
     
 	//=========================================================================

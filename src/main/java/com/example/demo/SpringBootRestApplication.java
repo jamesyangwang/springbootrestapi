@@ -15,9 +15,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.example.demo.model.Quote;
 
-//https://spring.io/guides/gs/rest-service/
-//https://spring.io/guides/gs/consuming-rest/
-
 @SpringBootApplication
 public class SpringBootRestApplication {
 
@@ -43,9 +40,48 @@ public class SpringBootRestApplication {
 
 	@Bean
 	public Validator validator() {
-		//http://www.baeldung.com/javax-validation
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		return factory.getValidator();
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//https://spring.io/guides/gs/rest-service/
+//https://spring.io/guides/gs/consuming-rest/
+//http://www.baeldung.com/javax-validation
+
+
+
+
+
+
+
+
