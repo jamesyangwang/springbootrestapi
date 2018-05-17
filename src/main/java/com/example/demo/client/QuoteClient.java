@@ -13,9 +13,6 @@ public class QuoteClient {
 	
     private static final Logger log = LoggerFactory.getLogger(QuoteClient.class);
     
-    //https://stackoverflow.com/questions/22989500/is-resttemplate-thread-safe
-    //https://spring.io/blog/2009/03/27/rest-in-spring-3-resttemplate
-    //http://tiemensfamily.com/TimOnCS/2017/08/06/is-spring-resttemplate-thread-safe/
     @Autowired
     RestTemplate restTemplate;
     
@@ -29,3 +26,40 @@ public class QuoteClient {
         log.info(quote.toString());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//https://stackoverflow.com/questions/22989500/is-resttemplate-thread-safe
+//https://spring.io/blog/2009/03/27/rest-in-spring-3-resttemplate
+//http://tiemensfamily.com/TimOnCS/2017/08/06/is-spring-resttemplate-thread-safe/
+
+
+
+
+
+
+
+
