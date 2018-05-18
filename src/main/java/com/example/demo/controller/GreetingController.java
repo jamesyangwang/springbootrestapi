@@ -154,8 +154,6 @@ public class GreetingController {
 
 
 
-//Test URL:
-//http://localhost:8080/greeting?name=James
 
 
 //Validation:
@@ -166,6 +164,7 @@ public class GreetingController {
 //http://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-configuring-validator-factory
 
 //https://my.oschina.net/chen1988/blog/1511992
+//http://www.baeldung.com/javax-validation
 //http://www.baeldung.com/spring-data-rest-validators
 //https://howtodoinjava.com/spring/spring-boot2/spring-rest-request-validation/
 //https://blog.codecentric.de/en/2017/11/dynamic-validation-spring-boot-validation/

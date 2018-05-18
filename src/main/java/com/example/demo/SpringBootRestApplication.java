@@ -76,7 +76,7 @@ public class SpringBootRestApplication {
 
 //https://spring.io/guides/gs/rest-service/
 //https://spring.io/guides/gs/consuming-rest/
-//http://www.baeldung.com/javax-validation
+
 
 
 
