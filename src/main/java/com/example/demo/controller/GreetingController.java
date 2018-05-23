@@ -31,6 +31,7 @@ import com.example.demo.client.QuoteFeignClient;
 import com.example.demo.model.Greeting;
 import com.example.demo.model.Person;
 import com.example.demo.model.Quote;
+import com.example.demo.model.Value;
 
 @RestController
 public class GreetingController {
@@ -126,12 +127,22 @@ public class GreetingController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Access-Control-Allow-Origin", "*");
         
-    	Quote quote = qfc.getQuote();
+//    	Quote quote = qfc.getQuote();
+        Quote quote = getQuote();
     	Greeting greeting = new Greeting(counter.incrementAndGet(), String.format(template, name), quote);
 
         return new ResponseEntity<Greeting>(greeting, responseHeaders, HttpStatus.OK);
     }
 
+//    @HystrixCommand(fallbackMethod="defaultQuote")
+    private Quote getQuote() {
+    	return qfc.getQuote();
+    }
+    
+    @SuppressWarnings("unused")
+	private Quote defaultQuote() {
+    	return new Quote("good", new Value(168l, "This is the default quote!"));
+    }
 }
 
 

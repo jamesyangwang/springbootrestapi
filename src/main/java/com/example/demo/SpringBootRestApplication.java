@@ -18,6 +18,8 @@ import com.example.demo.model.Quote;
 
 @SpringBootApplication
 @EnableFeignClients
+//@EnableHystrix
+//@EnableConfigServer
 public class SpringBootRestApplication {
 
 	private static final Logger log = LoggerFactory.getLogger(SpringBootRestApplication.class);
