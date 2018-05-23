@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.client.QuoteClient;
+import com.example.demo.client.QuoteFeignClient;
 import com.example.demo.model.Greeting;
 import com.example.demo.model.Person;
 import com.example.demo.model.Quote;
@@ -41,6 +42,9 @@ public class GreetingController {
 	
 	@Autowired
 	QuoteClient qc;
+	
+	@Autowired
+	QuoteFeignClient qfc;
 	
 	@Autowired
 	Validator validator;
@@ -118,10 +122,14 @@ public class GreetingController {
     //http://localhost:8080/person?name=James
 
     @GetMapping("/person")
-    public ResponseEntity<Person> getPerson(@RequestParam String name) {
+    public ResponseEntity<Greeting> getPerson(@RequestParam String name) {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Access-Control-Allow-Origin", "*");
-        return new ResponseEntity<Person>(new Person(name, "AAA"), responseHeaders, HttpStatus.OK);
+        
+    	Quote quote = qfc.getQuote();
+    	Greeting greeting = new Greeting(counter.incrementAndGet(), String.format(template, name), quote);
+
+        return new ResponseEntity<Greeting>(greeting, responseHeaders, HttpStatus.OK);
     }
 
 }
