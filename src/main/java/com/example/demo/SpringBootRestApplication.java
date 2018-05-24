@@ -71,6 +71,18 @@ public class SpringBootRestApplication {
 
 
 
+//http://localhost:8080/actuator
+//http://localhost:8080	->	http://localhost:8080/browser/index.html#/	->	Explorer: /actuator
+
+
+
+
+
+
+
+//https://github.com/komoot/swagger-springmvc
+//https://github.com/springfox/springfox/issues/1307
+
 
 
 
