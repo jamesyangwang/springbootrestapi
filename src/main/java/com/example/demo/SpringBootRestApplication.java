@@ -22,6 +22,8 @@ import com.example.demo.model.Quote;
 
 @SpringBootApplication
 @EnableFeignClients
+//@EnableDiscoveryClient
+//@EnableAdminServer
 //@EnableHystrix
 //@EnableConfigServer
 public class SpringBootRestApplication {
@@ -68,6 +70,15 @@ public class SpringBootRestApplication {
 //	}
 }
 
+//@RestController
+//class ServiceInstanceRestController {
+//	@Autowired
+//	private DiscoveryClient discoveryClient;
+//	@GetMapping("/service-instance/{applicationName}")
+//	public List<ServiceInstance> serviceInstancesByApplicationName(@PathVariable String applicationName) {
+//		return this.discoveryClient.getInstances(applicationName);
+//	}
+//}
 
 
 
@@ -85,6 +96,11 @@ public class SpringBootRestApplication {
 
 
 
+
+//versioning:
+//header
+//parameter
+//uri
 
 
 
