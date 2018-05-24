@@ -8,6 +8,7 @@
 	</appender>
 
 	<logger name="com.example" level="DEBUG" />
+	<logger name="org.springframework" level="DEBUG" />
 
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">

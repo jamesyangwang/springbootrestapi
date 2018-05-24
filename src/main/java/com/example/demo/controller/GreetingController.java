@@ -34,6 +34,7 @@ import com.example.demo.model.Quote;
 import com.example.demo.model.Value;
 
 @RestController
+//@ConfigurationProperties("hello")
 public class GreetingController {
 
     private static final String template = "Hello, %s!";

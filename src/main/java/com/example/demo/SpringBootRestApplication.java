@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Locale;
+
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -13,6 +15,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
 import com.example.demo.model.Quote;
 
@@ -48,6 +52,20 @@ public class SpringBootRestApplication {
 		return factory.getValidator();
 	}
 
+	@Bean
+	public LocaleResolver localeResolver() {
+//		SessionLocaleResolver localeResolver = new SessionLocaleResolver();
+		AcceptHeaderLocaleResolver localeResolver = new AcceptHeaderLocaleResolver();
+		localeResolver.setDefaultLocale(Locale.US);
+		return localeResolver;
+	}
+	
+//	@Bean
+//	public ResourceBundleMessageSource messageSource() {
+//		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+//		messageSource.setBasename("messages");
+//		return messageSource;
+//	}
 }
 
 
@@ -73,9 +91,13 @@ public class SpringBootRestApplication {
 
 
 
+//https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-running-your-application.html
+//https://spring.io/blog/2015/03/18/spring-boot-support-in-spring-tool-suite-3-6-4
+//https://stackoverflow.com/questions/37490144/is-there-a-difference-between-run-as-spring-boot-app-and-run-as-java-applicati
 
-
-
+//open “spring-boot-autoconfigure-1.2.2.RELEASE.jar” (under “Maven Dependencies”) and
+//browse to “META-INF/spring-configuration-metadata.json”.
+//You’ll find properties like server.port being documented there.
 
 
 //https://spring.io/guides/gs/rest-service/
