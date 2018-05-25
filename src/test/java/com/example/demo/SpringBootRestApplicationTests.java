@@ -9,3 +9,5 @@ public class SpringBootRestApplicationTests {
 //	}
 
 }
+
+//https://spring.io/guides/gs/actuator-service/
