@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import com.example.demo.model.User;
+import com.example.demo.entity.User;
 
 @Component
 public class UserDaoService {

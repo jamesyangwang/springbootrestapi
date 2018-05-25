@@ -1,36 +1,40 @@
-package com.example.demo.model;
+package com.example.demo.entity;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ApiModel(description="All details about the user")
-public class User {
+@Entity
+public class Post {
 
+	@Id
+	@GeneratedValue
 	private Integer id;
 	
-	@Size(min=2, message="Name should have at least 2 characters")
-	@ApiModelProperty(notes="Name should have at least 2 characters")
-	private String name;
+	private String desc;
 	
-	@Past
-	@ApiModelProperty(notes="Birth date should be in the past")
-	private Date birthDate;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JsonIgnore
+	private User user;
 	
 }
 
